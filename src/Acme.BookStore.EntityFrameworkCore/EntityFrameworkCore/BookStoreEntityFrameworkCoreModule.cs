@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Uow;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -12,6 +12,8 @@ using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Volo.CmsKit.EntityFrameworkCore;
+using Volo.Docs.EntityFrameworkCore;
 
 namespace Acme.BookStore.EntityFrameworkCore;
 
@@ -27,7 +29,9 @@ namespace Acme.BookStore.EntityFrameworkCore;
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
     typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
-public class BookStoreEntityFrameworkCoreModule : AbpModule
+[DependsOn(typeof(CmsKitEntityFrameworkCoreModule))]
+    [DependsOn(typeof(DocsEntityFrameworkCoreModule))]
+    public class BookStoreEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

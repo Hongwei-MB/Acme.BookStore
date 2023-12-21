@@ -42,6 +42,10 @@ using Volo.Abp.VirtualFileSystem;
 using System;
 using Acme.BookStore.Permissions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Volo.CmsKit.Web;
+using Volo.Docs;
+using Volo.Docs.Admin;
+using Volo.Abp.VirtualFileExplorer.Web;
 
 namespace Acme.BookStore.Web;
 
@@ -58,7 +62,11 @@ namespace Acme.BookStore.Web;
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
     )]
-public class BookStoreWebModule : AbpModule
+[DependsOn(typeof(CmsKitWebModule))]
+    [DependsOn(typeof(DocsWebModule))]
+    [DependsOn(typeof(DocsAdminWebModule))]
+    [DependsOn(typeof(AbpVirtualFileExplorerWebModule))]
+    public class BookStoreWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

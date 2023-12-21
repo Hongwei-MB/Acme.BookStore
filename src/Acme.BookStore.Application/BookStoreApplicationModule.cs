@@ -1,4 +1,4 @@
-﻿using Volo.Abp.Account;
+using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -6,6 +6,9 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using Volo.CmsKit;
+using Volo.Docs;
+using Volo.Docs.Admin;
 
 namespace Acme.BookStore;
 
@@ -19,7 +22,10 @@ namespace Acme.BookStore;
     typeof(AbpFeatureManagementApplicationModule),
     typeof(AbpSettingManagementApplicationModule)
     )]
-public class BookStoreApplicationModule : AbpModule
+[DependsOn(typeof(CmsKitApplicationModule))]
+    [DependsOn(typeof(DocsApplicationModule))]
+    [DependsOn(typeof(DocsAdminApplicationModule))]
+    public class BookStoreApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

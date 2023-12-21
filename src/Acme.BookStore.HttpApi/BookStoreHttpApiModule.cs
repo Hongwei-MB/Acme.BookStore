@@ -1,4 +1,4 @@
-﻿using Localization.Resources.AbpUi;
+using Localization.Resources.AbpUi;
 using Acme.BookStore.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
@@ -8,6 +8,9 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using Volo.CmsKit;
+using Volo.Docs;
+using Volo.Docs.Admin;
 
 namespace Acme.BookStore;
 
@@ -20,7 +23,10 @@ namespace Acme.BookStore;
     typeof(AbpFeatureManagementHttpApiModule),
     typeof(AbpSettingManagementHttpApiModule)
     )]
-public class BookStoreHttpApiModule : AbpModule
+[DependsOn(typeof(CmsKitHttpApiModule))]
+    [DependsOn(typeof(DocsHttpApiModule))]
+    [DependsOn(typeof(DocsAdminHttpApiModule))]
+    public class BookStoreHttpApiModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
